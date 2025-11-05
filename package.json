@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Serene Touch Care Services Website",
   "scripts": {
-    "dev": "vercel dev",
-    "build": "echo 'Static site - no build needed'"
+    "dev": "vercel dev"
   },
   "dependencies": {
     "resend": "^3.2.0"
@@ -14,4 +13,3 @@
     "node": ">=18.x"
   }
 }
-
