@@ -945,9 +945,9 @@
                               <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-172">
                                 <a href="../about-us/index.html" class="elementor-item" tabindex="-1">About Us</a>
                               </li>
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-290">
+                              <!-- <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-290">
                                 <a href="../training-recruitment/index.html" class="elementor-item" tabindex="-1">Training/Recruitment</a>
-                              </li>
+                              </li> -->
                               <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-277">
                                 <a href="../our-services/index.html" class="elementor-item" tabindex="-1">Our Services</a>
                               </li>
@@ -1107,13 +1107,8 @@
                 data-widget_type="form.default"
               >
                 <div class="elementor-widget-container">
-                  <form class="elementor-form" method="post" name="Contact form">
-                    <input type="hidden" name="post_id" value="216" />
-                    <input type="hidden" name="form_id" value="307ed208" />
-                    <input type="hidden" name="referer_title" value="Contact Us" />
-
-                    <input type="hidden" name="queried_id" value="216" />
-
+                  <div id="form-message" style="display: none; padding: 15px; margin-bottom: 20px; border-radius: 5px"></div>
+                  <form class="elementor-form" method="post" action="../contact-form-handler.php" name="Contact form" id="contact-form">
                     <div class="elementor-form-fields-wrapper elementor-labels-">
                       <div
                         class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-name elementor-col-50 elementor-md-100"
@@ -1122,10 +1117,11 @@
                         <input
                           size="1"
                           type="text"
-                          name="form_fields[name]"
+                          name="name"
                           id="form-field-name"
                           class="elementor-field elementor-size-lg elementor-field-textual"
                           placeholder="Full Name"
+                          required
                         />
                       </div>
                       <div
@@ -1135,22 +1131,22 @@
                         <input
                           size="1"
                           type="email"
-                          name="form_fields[email]"
+                          name="email"
                           id="form-field-email"
                           class="elementor-field elementor-size-lg elementor-field-textual"
-                          placeholder="Email Adress"
+                          placeholder="Email Address"
                           required="required"
                         />
                       </div>
                       <div
                         class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-field_b268df7 elementor-col-50 elementor-md-100"
                       >
-                        <label for="form-field-field_b268df7" class="elementor-field-label elementor-screen-only"> Phone number </label>
+                        <label for="form-field-phone" class="elementor-field-label elementor-screen-only"> Phone number </label>
                         <input
                           size="1"
                           type="text"
-                          name="form_fields[field_b268df7]"
-                          id="form-field-field_b268df7"
+                          name="phone"
+                          id="form-field-phone"
                           class="elementor-field elementor-size-lg elementor-field-textual"
                           placeholder="Phone Number"
                         />
@@ -1158,12 +1154,12 @@
                       <div
                         class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-field_49de01f elementor-col-50 elementor-md-100"
                       >
-                        <label for="form-field-field_49de01f" class="elementor-field-label elementor-screen-only"> Subject </label>
+                        <label for="form-field-subject" class="elementor-field-label elementor-screen-only"> Subject </label>
                         <input
                           size="1"
                           type="text"
-                          name="form_fields[field_49de01f]"
-                          id="form-field-field_49de01f"
+                          name="subject"
+                          id="form-field-subject"
                           class="elementor-field elementor-size-lg elementor-field-textual"
                           placeholder="Subject"
                         />
@@ -1174,10 +1170,11 @@
                         <label for="form-field-message" class="elementor-field-label elementor-screen-only"> Message </label>
                         <textarea
                           class="elementor-field-textual elementor-field elementor-size-lg"
-                          name="form_fields[message]"
+                          name="message"
                           id="form-field-message"
                           rows="5"
                           placeholder="Message"
+                          required
                         ></textarea>
                       </div>
                       <div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
@@ -1330,11 +1327,11 @@
                                 <span class="elementor-icon-list-text">About Us</span>
                               </a>
                             </li>
-                            <li class="elementor-icon-list-item">
+                            <!-- <li class="elementor-icon-list-item">
                               <a href="../training-recruitment/index.html">
                                 <span class="elementor-icon-list-text">Training/Recruitment</span>
                               </a>
-                            </li>
+                            </li> -->
                             <li class="elementor-icon-list-item">
                               <a href="../our-services/index.html">
                                 <span class="elementor-icon-list-text">Our Services</span>
@@ -1382,21 +1379,6 @@
                             <li class="elementor-icon-list-item">
                               <a href="../privacy-policy-2/index.html">
                                 <span class="elementor-icon-list-text">Privacy Policy</span>
-                              </a>
-                            </li>
-                            <li class="elementor-icon-list-item">
-                              <a href="../cookies-policy/index.html">
-                                <span class="elementor-icon-list-text">Cookies Policy</span>
-                              </a>
-                            </li>
-                            <li class="elementor-icon-list-item">
-                              <a href="../carbon-reduction-plan/index.html">
-                                <span class="elementor-icon-list-text">Carbon Reduction Plan</span>
-                              </a>
-                            </li>
-                            <li class="elementor-icon-list-item">
-                              <a href="../modern-slavery-act/index.html">
-                                <span class="elementor-icon-list-text">Modern Slavery Act</span>
                               </a>
                             </li>
                           </ul>
@@ -1503,6 +1485,49 @@
           }
         ]
       }
+    </script>
+    <script>
+      // Handle contact form success/error messages
+      document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const formMessage = document.getElementById("form-message");
+
+        if (urlParams.has("success")) {
+          formMessage.style.display = "block";
+          formMessage.style.backgroundColor = "#d4edda";
+          formMessage.style.color = "#155724";
+          formMessage.style.border = "1px solid #c3e6cb";
+          formMessage.innerHTML = "<strong>Success!</strong> Your message has been sent successfully. We will get back to you soon.";
+
+          // Scroll to message
+          formMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+
+          // Clear the form
+          document.getElementById("contact-form").reset();
+
+          // Remove URL parameters after 3 seconds
+          setTimeout(function () {
+            window.history.replaceState({}, document.title, window.location.pathname);
+          }, 3000);
+        }
+
+        if (urlParams.has("error")) {
+          const errorMsg = urlParams.get("error");
+          formMessage.style.display = "block";
+          formMessage.style.backgroundColor = "#f8d7da";
+          formMessage.style.color = "#721c24";
+          formMessage.style.border = "1px solid #f5c6cb";
+          formMessage.innerHTML = "<strong>Error!</strong> " + decodeURIComponent(errorMsg);
+
+          // Scroll to message
+          formMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+
+          // Remove URL parameters after 5 seconds
+          setTimeout(function () {
+            window.history.replaceState({}, document.title, window.location.pathname);
+          }, 5000);
+        }
+      });
     </script>
     <!-- Click to Chat - https://holithemes.com/plugins/click-to-chat/  v4.21 -->
 
