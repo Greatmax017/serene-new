@@ -1108,7 +1108,7 @@
               >
                 <div class="elementor-widget-container">
                   <div id="form-message" style="display: none; padding: 15px; margin-bottom: 20px; border-radius: 5px"></div>
-                  <form class="elementor-form" method="post" action="../contact-form-handler.php" name="Contact form" id="contact-form">
+                  <form class="elementor-form" name="Contact form" id="contact-form">
                     <div class="elementor-form-fields-wrapper elementor-labels-">
                       <div
                         class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-name elementor-col-50 elementor-md-100"
@@ -1487,46 +1487,80 @@
       }
     </script>
     <script>
-      // Handle contact form success/error messages
+      // Handle contact form submission
       document.addEventListener("DOMContentLoaded", function () {
-        const urlParams = new URLSearchParams(window.location.search);
+        const form = document.getElementById("contact-form");
         const formMessage = document.getElementById("form-message");
+        const submitButton = form.querySelector('button[type="submit"]');
+        const submitButtonText = submitButton.querySelector(".elementor-button-text");
+        const originalButtonText = submitButtonText.textContent;
 
-        if (urlParams.has("success")) {
+        // Show message function
+        function showMessage(type, message) {
           formMessage.style.display = "block";
-          formMessage.style.backgroundColor = "#d4edda";
-          formMessage.style.color = "#155724";
-          formMessage.style.border = "1px solid #c3e6cb";
-          formMessage.innerHTML = "<strong>Success!</strong> Your message has been sent successfully. We will get back to you soon.";
 
-          // Scroll to message
+          if (type === "success") {
+            formMessage.style.backgroundColor = "#d4edda";
+            formMessage.style.color = "#155724";
+            formMessage.style.border = "1px solid #c3e6cb";
+          } else {
+            formMessage.style.backgroundColor = "#f8d7da";
+            formMessage.style.color = "#721c24";
+            formMessage.style.border = "1px solid #f5c6cb";
+          }
+
+          formMessage.innerHTML = message;
           formMessage.scrollIntoView({ behavior: "smooth", block: "center" });
 
-          // Clear the form
-          document.getElementById("contact-form").reset();
-
-          // Remove URL parameters after 3 seconds
+          // Hide message after 5 seconds
           setTimeout(function () {
-            window.history.replaceState({}, document.title, window.location.pathname);
-          }, 3000);
-        }
-
-        if (urlParams.has("error")) {
-          const errorMsg = urlParams.get("error");
-          formMessage.style.display = "block";
-          formMessage.style.backgroundColor = "#f8d7da";
-          formMessage.style.color = "#721c24";
-          formMessage.style.border = "1px solid #f5c6cb";
-          formMessage.innerHTML = "<strong>Error!</strong> " + decodeURIComponent(errorMsg);
-
-          // Scroll to message
-          formMessage.scrollIntoView({ behavior: "smooth", block: "center" });
-
-          // Remove URL parameters after 5 seconds
-          setTimeout(function () {
-            window.history.replaceState({}, document.title, window.location.pathname);
+            formMessage.style.display = "none";
           }, 5000);
         }
+
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          // Disable submit button
+          submitButton.disabled = true;
+          submitButtonText.textContent = "Sending...";
+
+          // Get form data
+          const formData = {
+            name: document.getElementById("form-field-name").value,
+            email: document.getElementById("form-field-email").value,
+            phone: document.getElementById("form-field-phone").value,
+            subject: document.getElementById("form-field-subject").value,
+            message: document.getElementById("form-field-message").value,
+          };
+
+          try {
+            // Submit to Vercel serverless function
+            const response = await fetch("/api/contact", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              showMessage("success", "<strong>Success!</strong> Your message has been sent successfully. We will get back to you soon.");
+              form.reset();
+            } else {
+              showMessage("error", "<strong>Error!</strong> " + (data.error || "Something went wrong. Please try again."));
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            showMessage("error", "<strong>Error!</strong> Failed to send message. Please try again later.");
+          } finally {
+            // Re-enable submit button
+            submitButton.disabled = false;
+            submitButtonText.textContent = originalButtonText;
+          }
+        });
       });
     </script>
     <!-- Click to Chat - https://holithemes.com/plugins/click-to-chat/  v4.21 -->
