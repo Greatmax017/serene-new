@@ -40,7 +40,7 @@ export default async function handler(req, res) {
     const resend = new Resend(process.env.RESEND_API_KEY);
     
     await resend.emails.send({
-      from: 'Serene Touch <onboarding@resend.dev>', // Use Resend's test domain or your verified domain
+      from: 'Serene Touch <noreply@serenetouchcareservices.co.uk>', // Use Resend's test domain or your verified domain
       to: 'amen@serenetouchcareservices.co.uk',
       reply_to: email,
       subject: `New Contact Form: ${subject || 'General Inquiry'}`,
